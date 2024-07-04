@@ -104,6 +104,12 @@ const editItem = (updateItem) => {
     formButton.style.backgroundColor = '#333';
 };
 
+// check if the item already exists
+const checkItemExists = (item) => {
+    const itemsFromStorage = getItemsFromLocalStorage();
+    return itemsFromStorage.includes(item);
+};
+
 // submit function
 const onSubmitItem = (e) => {
     e.preventDefault();
@@ -113,7 +119,11 @@ const onSubmitItem = (e) => {
         editItem(item);
         editMode = false;
     } else {
-        addItem(item);
+        if (checkItemExists(item)) {
+            alert('The item already exists!');
+        } else {
+            addItem(item);
+        };
     };
 };
 
@@ -187,7 +197,7 @@ const filterItems = (e) => {
     });
 };
 
-// check the item number
+// check UI to display DOM elements
 const checkUI = () => { 
     const listItems = document.querySelectorAll('li');
 
